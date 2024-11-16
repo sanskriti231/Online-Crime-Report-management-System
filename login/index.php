@@ -1,3 +1,67 @@
+<?php
+session_start();
+include_once '../_connection.php'; // Ensure this points to your database connection file
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Debugging: Check if the form is being submitted
+    echo "Form submitted.<br>";
+
+    // Get form data
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Debugging: Check the received email and password
+    echo "Email: " . $email . "<br>";
+    echo "Password: " . $password . "<br>";
+
+    try {
+        // Prepare the SQL statement
+        $stmt = $conn->prepare("SELECT user_id, password, role FROM Users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows == 1) {
+            // User found
+            $row = $result->fetch_assoc();
+
+            // Verify the password
+            if (password_verify($password, $row['password'])) {
+                // Password is correct, start a session
+                $_SESSION['user_id'] = $row['user_id'];
+                $_SESSION['role'] = $row['role'];
+
+                // Redirect to different pages based on role
+                if ($row['role'] == 'reporter') {
+                    header('Location: ../dashboard');
+                } elseif ($row['role'] == 'officer') {
+                    header('Location: ../dashboard');
+                } else {
+                    // Redirect to a general dashboard or home page
+                    header('Location: ../home');
+                }
+                exit();
+            } else {
+                // Password is incorrect
+                $_SESSION['error'] = "Invalid email or password.";
+                header('Location: ./');
+                exit();
+            }
+        } else {
+            // User not found
+            $_SESSION['error'] = "Invalid email or password.";
+            header('Location: ./');
+            exit();
+        }
+    } catch (Exception $e) {
+        // Handle any other errors
+        $_SESSION['error'] = "There was an error logging in: " . $e->getMessage();
+        header('Location: ./');
+        exit();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,27 +79,33 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
 
     <style>
-        main{
+        main {
             height: 67vh !important;
         }
     </style>
 </head>
 
 <body class="bg-dark h-100">
-    <?php include "../header.php" ?>
+    <?php include "../header.php"; ?>
 
     <main class="d-flex justify-content-center align-items-center">
         <section>
             <div class="">
-                <form class="border p-3 rounded text-bg-light">
+                <form class="border p-3 rounded text-bg-light" method="POST" action="">
+                    <?php
+                    if (isset($_SESSION['error'])) {
+                        echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';
+                        unset($_SESSION['error']);
+                    }
+                    ?>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -43,8 +113,9 @@
         </section>
     </main>
     <section>
-        <?php include "../footer.php" ?>
+        <?php include "../footer.php"; ?>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
