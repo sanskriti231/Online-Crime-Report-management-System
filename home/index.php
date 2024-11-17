@@ -164,6 +164,11 @@
             width: 300px;
             margin-top: 10px;
         }
+
+        .card img{
+            width: 190px;
+            border-radius: 50%;
+        }
     </style>
 </head>
 
@@ -212,35 +217,35 @@
                     <div class="col-md-3 mb-4">
                         <div class="card testimonial-card text-center p-4">
                             <img id="testimonial-img-1" class="mx-auto mb-3" alt="...">
-                            <p class="testimonial-quote" id="testimonial-message-1"></p>
-                            <p class="testimonial-name" id="testimonial-name-1"></p>
+                            <h4 class="testimonial-name" id="testimonial-name-1"></h4>
+                            <p class="testimonial-quote"><a href="" id="testimonial-message-1">LinkedIn</a></p>
                             <p class="testimonial-position" id="testimonial-position-1"></p>
                         </div>
                     </div>
                     <div class="col-md-3 mb-4">
                         <div class="card testimonial-card text-center p-4">
                             <img id="testimonial-img-2" class="mx-auto mb-3" alt="...">
-                            <p class="testimonial-quote" id="testimonial-message-2"></p>
-                            <p class="testimonial-name" id="testimonial-name-2"></p>
+                            <h4 class="testimonial-name" id="testimonial-name-2"></h4>
+                            <p class="testimonial-quote"><a href="" id="testimonial-message-2">LinkedIn</a></p>
                             <p class="testimonial-position" id="testimonial-position-2"></p>
                         </div>
                     </div>
                     <div class="col-md-3 mb-4">
                         <div class="card testimonial-card text-center p-4">
                             <img id="testimonial-img-3" class="mx-auto mb-3" alt="...">
-                            <p class="testimonial-quote" id="testimonial-message-3"></p>
-                            <p class="testimonial-name" id="testimonial-name-3"></p>
+                            <h4 class="testimonial-name" id="testimonial-name-3"></h4>
+                            <p class="testimonial-quote"><a href="" id="testimonial-message-3">LinkedIn</a></p>
                             <p class="testimonial-position" id="testimonial-position-3"></p>
                         </div>
                     </div>
                     <div class="col-md-3 mb-4">
                         <div class="card testimonial-card text-center p-4">
                             <img id="testimonial-img-4" class="mx-auto mb-3" alt="...">
-                            <p class="testimonial-quote" id="testimonial-message-4"></p>
-                            <p class="testimonial-name" id="testimonial-name-4"></p>
+                            <h4 class="testimonial-name" id="testimonial-name-4"></h4>
+                            <p class="testimonial-quote"><a href="" id="testimonial-message-4">LinkedIn</a></p>
                             <p class="testimonial-position" id="testimonial-position-4"></p>
                         </div>
-                    </div>
+                    </div>  
                 </div>
                 <div class="text-center mt-4">
                     <button class="btn btn-dark mx-2" id="testimonial-btn-left">
@@ -293,28 +298,28 @@
 <script>
     const testimonials = [
         {
-            img: '../assets/img/our-team/1.jpeg',
+            img: '../assets/img/our-team/1.png',
             name: 'Sumit Rathor',
-            position: 'Xyz',
-            message: 'Hey, I am Sumit'
-        },
-        {
-            img: '../assets/img/our-team/4.jpeg',
-            name: 'Harshil Jain',
-            position: 'Xyz',
-            message: 'Hey, I am Harshil Jain'
+            position: 'Team Member',
+            message: 'https://www.linkedin.com/in/sumitrathor/'
         },
         {
             img: '../assets/img/our-team/2.jpeg',
-            name: 'Sanskriti',
-            position: 'Xyz',
-            message: 'Hey, I am Sanskriti'
+            name: 'Harshil Jain',
+            position: 'Team Member',
+            message: 'https://www.linkedin.com/in/harshil-jain-851054294?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app'
         },
         {
             img: '../assets/img/our-team/3.jpeg',
-            name: 'Khushi',
-            position: 'Xyz',
-            message: 'Hey, I am Khushi'
+            name: 'Khushi Goyal',
+            position: 'Team Member',
+            message: 'https://www.linkedin.com/in/khushigoyal09142005?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app'
+        },
+        {
+            img: '../assets/img/our-team/4.jpeg',
+            name: 'Sanskriti Gupta',
+            position: 'Team Member',
+            message: 'https://www.linkedin.com/in/sanskriti-gupta-uno/'
         }
     ];
 
@@ -326,7 +331,7 @@
             let testimonial = testimonials[testimonialIndex];
 
             document.getElementById(`testimonial-img-${i + 1}`).src = testimonial.img;
-            document.getElementById(`testimonial-message-${i + 1}`).innerText = `"${testimonial.message}"`;
+            document.getElementById(`testimonial-message-${i + 1}`).href = `${testimonial.message}`;
             document.getElementById(`testimonial-name-${i + 1}`).innerText = testimonial.name;
             document.getElementById(`testimonial-position-${i + 1}`).innerText = testimonial.position;
         }
