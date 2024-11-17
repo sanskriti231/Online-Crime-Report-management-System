@@ -68,31 +68,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Page Title</title>
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
         body, html {
             height: 100%;
+            margin: 0;
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
         }
         main {
-            height: 100% !important;
+            flex: 1;
         }
     </style>
 </head>
-
 <body class="bg-dark h-100">
     <?php include "../header.php"; ?>
-
-    <main class="d-flex flex-column gap-3 justify-content-center align-items-center">
+    <div class="wrapper">
+    <main class="">
         <section>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -100,41 +104,102 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     Select Account Type
                 </button>
                 <ul class="dropdown-menu">
-                    <li class="ms-3"><a class="dropdown-item" onclick="selectRole('reporter')" href="#">Reporter</a></li>
+                    <li class="ms-3"><a class="dropdown-item" onclick="selectRole('reporter')" href="#">Reporter</a>
+                    </li>
                     <li class="ms-3"><a class="dropdown-item" onclick="selectRole('officer')" href="#">Officer</a></li>
                 </ul>
             </div>
         </section>
-        <section>
-            <div class="container">
-                <form class="border p-3 rounded bg-light" id="signUpForm" method="POST" action="">
-                    <input type="hidden" name="role" id="role">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" name="name" id="name" required>
+        <section class="vh-100" style="background-color: #eee;">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-lg-12 col-xl-11">
+                        <div class="card text-black" style="border-radius: 25px;">
+                            <div class="card-body p-md-5">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                                        <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+
+                                        <form class="mx-1 mx-md-4" id="signUpForm" method="POST" action="">
+                                            <input type="hidden" name="role" id="role" value="reporter">
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                                <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                                                    <input type="text" id="name" class="form-control" name="name"
+                                                        required />
+                                                    <label class="form-label" for="name">Your Name</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                                <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                                                    <input type="email" id="email" class="form-control" name="email"
+                                                        required />
+                                                    <label class="form-label" for="email">Your Email</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                                                <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                                                    <input type="password" id="password" class="form-control"
+                                                        name="password" required />
+                                                    <label class="form-label" for="password">Password</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <i class="fas fa-phone fa-lg me-3 fa-fw"></i>
+                                                <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                                                    <input type="text" id="phone" class="form-control" name="phone" />
+                                                    <label class="form-label" for="phone">Phone Number</label>
+                                                </div>
+                                            </div>
+
+                                            <div id="additionalFields">
+                                                <div class="mb-3">
+                                                    <label for="address" class="form-label">Address</label>
+                                                    <input type="text" class="form-control"
+                                                        name="additionalFields[address]" id="address">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="occupation" class="form-label">Occupation</label>
+                                                    <input type="text" class="form-control"
+                                                        name="additionalFields[occupation]" id="occupation">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-check d-flex justify-content-center mb-5">
+                                                <input class="form-check-input me-2" type="checkbox" value=""
+                                                    id="form2Example3c" />
+                                                <label class="form-check-label" for="form2Example3">
+                                                    I agree all statements in <a href="#!">Terms of service</a>
+                                                </label>
+                                            </div>
+
+                                            <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                                <button type="submit" data-mdb-button-init data-mdb-ripple-init
+                                                    class="btn btn-primary btn-lg">Register</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                    <div
+                                        class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                                        <img src="../assets/img/draw1.webp" class="img-fluid" alt="Sample image">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" required>
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" name="phone" id="phone">
-                    </div>
-                    <div id="additionalFields"></div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                </div>
+            </div>
             </div>
         </section>
     </main>
-    <section>
-        <?php include "../footer.php"; ?>
-    </section>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const selectRole = (role) => {
@@ -146,11 +211,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 additionalFields.innerHTML = `
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" name="additionalFields[address]" id="address">
+                        <input type="text" class="form-control" name="additionalFields[address]" id="address" required>
                     </div>
                     <div class="mb-3">
                         <label for="occupation" class="form-label">Occupation</label>
-                        <input type="text" class="form-control" name="additionalFields[occupation]" id="occupation">
+                        <input type="text" class="form-control" name="additionalFields[occupation]" id="occupation" required>
                     </div>`;
             } else if (role === 'officer') { // Officer
                 additionalFields.innerHTML = `
@@ -170,11 +235,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                     <div class="mb-3">
                         <label for="rank" class="form-label">Rank</label>
-                        <input type="text" class="form-control" name="additionalFields[rank]" id="rank">
+                        <input type="text" class="form-control" name="additionalFields[rank]" id="rank" required>
                     </div>`;
             }
         }
     </script>
 </body>
-
 </html>
