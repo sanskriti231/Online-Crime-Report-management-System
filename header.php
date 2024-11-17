@@ -26,7 +26,7 @@
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 roboto-bold">
                     <li><a href="../" class="nav-link px-2 text-white">Home</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">About Project</a></li>
+                    <li><a href="/about/index.html" class="nav-link px-2 text-white">About Project</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">All Criminal</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Log Complaint</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Register</a></li>
